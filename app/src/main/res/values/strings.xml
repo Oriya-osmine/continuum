@@ -18,6 +18,7 @@
     <string name="account_saved_thing_activity_label">Saved</string>
     <string name="create_multi_reddit_activity_label">Create Multireddit</string>
     <string name="subreddit_multiselection_activity_label">Select Subreddits</string>
+    <string name="user_multiselection_activity_label">Select Users</string>
     <string name="custom_theme_listing_activity_label">Custom Themes</string>
     <string name="customize_theme_activity_label">Customize Theme</string>
     <string name="customize_theme_activity_create_theme_label">Create Theme</string>
