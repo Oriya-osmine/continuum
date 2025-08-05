@@ -1,5 +1,6 @@
 package ml.docilealligator.infinityforreddit.activities;
 
+
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import javax.inject.Named;
 
 import ml.docilealligator.infinityforreddit.Infinity;
 import ml.docilealligator.infinityforreddit.R;
+import ml.docilealligator.infinityforreddit.RedditDataRoomDatabase;
 import ml.docilealligator.infinityforreddit.bottomsheetfragments.PostLayoutBottomSheetFragment;
 import ml.docilealligator.infinityforreddit.customtheme.CustomThemeWrapper;
 import ml.docilealligator.infinityforreddit.customviews.slidr.Slidr;
@@ -35,6 +37,7 @@ import ml.docilealligator.infinityforreddit.events.SwitchAccountEvent;
 import ml.docilealligator.infinityforreddit.fragments.CommentsListingFragment;
 import ml.docilealligator.infinityforreddit.fragments.HistoryPostFragment;
 import ml.docilealligator.infinityforreddit.fragments.PostFragment;
+import ml.docilealligator.infinityforreddit.postfilter.PostFilter;
 import ml.docilealligator.infinityforreddit.utils.SharedPreferencesUtils;
 
 public class HistoryActivity extends BaseActivity implements ActivityToolbarInterface,
@@ -54,6 +57,9 @@ public class HistoryActivity extends BaseActivity implements ActivityToolbarInte
     private FragmentManager fragmentManager;
     private SectionsPagerAdapter sectionsPagerAdapter;
     private ActivityHistoryBinding binding;
+    @Inject
+    RedditDataRoomDatabase mRedditDataRoomDatabase;
+    private PostFilter postFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +96,8 @@ public class HistoryActivity extends BaseActivity implements ActivityToolbarInte
                 adjustToolbar(binding.toolbarHistoryActivity);
             }
         }
+
+
 
         setSupportActionBar(binding.toolbarHistoryActivity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -238,19 +246,11 @@ public class HistoryActivity extends BaseActivity implements ActivityToolbarInte
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            if (position == 0) {
-                HistoryPostFragment fragment = new HistoryPostFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt(HistoryPostFragment.EXTRA_HISTORY_TYPE, HistoryPostFragment.HISTORY_TYPE_READ_POSTS);
-                fragment.setArguments(bundle);
-                return fragment;
-            } else {
-                HistoryPostFragment fragment = new HistoryPostFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt(HistoryPostFragment.EXTRA_HISTORY_TYPE, HistoryPostFragment.HISTORY_TYPE_READ_POSTS);
-                fragment.setArguments(bundle);
-                return fragment;
-            }
+            HistoryPostFragment fragment = new HistoryPostFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(HistoryPostFragment.EXTRA_HISTORY_TYPE, HistoryPostFragment.HISTORY_TYPE_READ_POSTS);
+            fragment.setArguments(bundle);
+            return fragment;
         }
 
         @Nullable
